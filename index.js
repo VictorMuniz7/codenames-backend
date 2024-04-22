@@ -22,9 +22,12 @@ io.on("connection", (socket) => {
 
     socket.on('joinGame', ({gameId}) => {
         socket.join(gameId);
-        console.log("a player joined the room " + gameId);
         socket.to(gameId).emit('joinGame', 'A player joined the game!');
-       })
+    })
+
+    socket.on('stopGame', ({gameId}) => {
+        io.to(gameId).emit('stopGame')
+    })
 })
 
 const PORT = process.env.PORT || 3000;
